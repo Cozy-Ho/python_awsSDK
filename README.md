@@ -13,6 +13,13 @@ Can add custom converting logic to migrate.
 
 # How to Run
 
+you should set AWS-account on your system.
+
+follow this guide
+
+-   <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html" target="_blanck">BOTO3 API_doc</a>
+    <br>
+
 1. clone this repo
 2. `$ pip install -r requirements.txt`
 3. python app.py
