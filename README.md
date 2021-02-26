@@ -17,7 +17,7 @@ you should set AWS-account on your system.
 
 follow this guide
 
--   <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html" target="_blanck">BOTO3 API_doc</a>
+-   <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html" target="_blank">BOTO3 API_doc</a>
     <br>
 
 1. clone this repo
