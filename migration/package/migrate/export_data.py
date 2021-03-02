@@ -2,6 +2,7 @@ import boto3
 import json
 import decimal
 import numpy as np
+import logging
 
 
 class DecimalEncoder(json.JSONEncoder):
@@ -32,6 +33,7 @@ def export_data(t_name, file_path, dynamodb=None):
             if start_key:
                 params['ExclusiveStartKey'] = start_key
             response = table.scan(**params)
+            logging.info(len(response.get("Items")))
             for item in response.get("Items"):
                 movies.append(item)
             start_key = response.get('LastEvaluatedKey', None)
@@ -40,9 +42,13 @@ def export_data(t_name, file_path, dynamodb=None):
         # movies = np.array(movies)
         # movies = movies.flatten()
         # movies = movies.tolist()
+        logging.info(">>> SEARCH DONE >>> ")
+        logging.info("writting on file...")
         write_file(file_path, movies)
+        logging.info(">>> DONE")
     except Exception as e:
         print(e)
+        # logging.info("ERROR>>>" + e)
         return False
 
     return True
