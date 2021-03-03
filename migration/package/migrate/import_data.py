@@ -43,8 +43,8 @@ def import_data(t_name, file_path, dynamodb=None):
                     print(i)
                 i += 1
         print("Import DONE")
-        return True
+        return "done"
 
     except Exception as e:
         print(e)
-        return False
+        return e

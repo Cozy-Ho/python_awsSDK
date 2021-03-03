@@ -1,5 +1,4 @@
 from pprint import pprint
-import boto3
 from package.migrate import *
 import time
 import os

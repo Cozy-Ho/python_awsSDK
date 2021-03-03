@@ -1,7 +1,6 @@
 import boto3
 import json
 import decimal
-import numpy as np
 import logging
 
 
@@ -38,17 +37,14 @@ def export_data(t_name, file_path, dynamodb=None):
                 movies.append(item)
             start_key = response.get('LastEvaluatedKey', None)
             done = start_key is None
-        # print(movies)
-        # movies = np.array(movies)
-        # movies = movies.flatten()
-        # movies = movies.tolist()
+
         logging.info(">>> SEARCH DONE >>> ")
         logging.info("writting on file...")
         write_file(file_path, movies)
         logging.info(">>> DONE")
+        return "done"
     except Exception as e:
         print(e)
-        # logging.info("ERROR>>>" + e)
-        return False
+        return e
 
     return True
