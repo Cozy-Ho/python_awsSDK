@@ -12,6 +12,6 @@ def delete_table(t_name, dynamodb=None):
         )
     except Exception as e:
         print(e)
-        return False
+        return e
 
-    return response
+    return "done"

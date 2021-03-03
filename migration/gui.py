@@ -1,8 +1,8 @@
+# from migration.package.migrate.delete_table import delete_table
 from package.migrate import *
-from package.convert import logic
+from package.convert import *
 import sys
-from PyQt5.QtWidgets import QApplication, QGridLayout, QHBoxLayout, QProgressBar, QDesktopWidget, QLineEdit, QInputDialog, QTextEdit, QWidget, QLabel, QVBoxLayout, QPushButton
-from PyQt5.QtCore import Qt, QBasicTimer
+from PyQt5.QtWidgets import QApplication, QGridLayout, QDesktopWidget, QLineEdit, QTextEdit, QWidget, QLabel, QPushButton
 import os
 import time
 
@@ -31,12 +31,16 @@ class MyApp(QWidget):
         self.input_tablename = QLineEdit(self)
         self.lb_filename = QLabel("file_name : ", self)
         self.input_filename = QLineEdit(self)
+        self.create_btn = QPushButton('CREATE', self)
+        self.create_btn.clicked.connect(self.doCreate)
         self.export_btn = QPushButton('EXPORT', self)
         self.export_btn.clicked.connect(self.doExport)
         self.import_btn = QPushButton('IMPORT', self)
         self.import_btn.clicked.connect(self.doImport)
         self.convert_btn = QPushButton('CONVERT', self)
         self.convert_btn.clicked.connect(self.doConvert)
+        self.delete_btn = QPushButton('delete', self)
+        self.delete_btn.clicked.connect(self.doDelete)
         self.lb_log = QTextEdit("LOG ...", self)
         # self.pbar = QProgressBar(self)
 
@@ -44,10 +48,13 @@ class MyApp(QWidget):
         grid.addWidget(self.input_tablename, 0, 2)
         grid.addWidget(self.lb_filename, 1, 0)
         grid.addWidget(self.input_filename, 1, 2)
-        grid.addWidget(self.export_btn, 2, 0)
-        grid.addWidget(self.import_btn, 2, 1)
-        grid.addWidget(self.convert_btn, 2, 2)
-        grid.addWidget(self.lb_log, 3, 0, 3, 3)
+        grid.addWidget(self.create_btn, 2, 0, 2, 4)
+        grid.addWidget(self.export_btn, 3, 0)
+        grid.addWidget(self.import_btn, 3, 1)
+        grid.addWidget(self.convert_btn, 3, 2)
+        grid.addWidget(self.delete_btn, 3, 3)
+
+        grid.addWidget(self.lb_log, 4, 0, 4, 4)
         # grid.setRowStretch(3, 4)
         # grid.addWidget(self.pbar, 4, 0)
 
@@ -95,6 +102,24 @@ class MyApp(QWidget):
         if result == "done":
             self.lb_log.append(
                 f"DONE >>> \nCONVERT TIME >>> {time.time() - start}")
+        else:
+            self.lb_log.append(str(result))
+
+    def doCreate(self):
+        table_name = self.input_tablename.text()
+        result = create_table.create_table(table_name)
+        start = time.time()
+        if result == "done":
+            self.lb_log.append(
+                f"DONE >>> \nCREATE TIME >>> {time.time() - start}")
+        else:
+            self.lb_log.append(str(result))
+
+    def doDelete(self):
+        table_name = self.input_tablename.text()
+        result = delete_table.delete_table(table_name)
+        if result == "done":
+            self.lb_log.append(f"DONE >>>")
         else:
             self.lb_log.append(str(result))
 
